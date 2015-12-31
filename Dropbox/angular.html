@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>FusionCharts Jquery Example</title>
+
+<script type="text/javascript" src="fusioncharts/fusioncharts.js"></script>
+<script type="text/javascript" src="fusioncharts/fusioncharts.charts.js"></script>
+<script type="text/javascript" src="fusioncharts/angular.min.js"></script>
+<script type="text/javascript" src="fusioncharts/angular-fusioncharts.min.js"></script>
+<script type="text/javascript" src="fusioncharts/themes/fusioncharts.theme.zune.js"></script>
+<script	type="text/javascript">
+var maindata=[
+{
+"label": "Professional degree",
+"value": "4.17"
+},
+{
+"label": "Doctoral degree",
+"value": "7.16"
+},
+{
+"label": "Masters degree",
+"value": "8.95"
+},
+{
+"label": "Bachelors degree",
+"value": "10.93"
+},
+{
+"label": "Associates degree",
+"value": "12.33"
+},
+{
+"label": "Some college, no degree",
+"value": "15.31"
+},
+{
+"label": "High school diploma",
+"value": "16.5"
+},
+{
+"label": "Less than a high school diploma",
+"value": "24.65"
+}
+]
+var angulardata=[];
+for(var i=0;i<5;i++){
+angulardata.push(maindata[i]);
+}
+var app=angular.module("myApp", ["ng-fusioncharts"]);
+app.controller('MyController', function($scope) {
+$scope.dataSource ={
+           chart: {
+        caption: "Harry's SuperMart",
+        subCaption: "Top 5 stores in last month by revenue",
+        numberPrefix: "$",
+        theme: "ocean"
+    },
+    data:angulardata
+        };
+		
+		 $scope.Update = function() {      
+	   $scope.dataSource.data=maindata;
+    };
+	 $scope.Restore = function() {      
+	   //$scope.dataSource.data=angulardata;
+	   $scope.dispose();
+    };
+
+});
+</script>
+
+</head>
+<body ng-app="myApp">
+
+<div ng-controller="MyController">
+    <div fusioncharts width="600" height="400" type="column2d" chartid="chart1" dataSource="{{dataSource}}">
+    </div>
+	<input type="button" id="btnClone" value="Update"  ng-click="Update()"/>
+		<input type="button" id="btnClone" value="Restore"  ng-click="Restore()"/>
+</div>
+
+ 
+</body>
+</html>
